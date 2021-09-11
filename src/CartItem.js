@@ -1,39 +1,10 @@
 import React from "react";
 
 class CartItem extends React.Component{
-   
-    increaseQuantity= () =>{
-        // this.state.qty += 1;
-       // console.log('this',this.state);
-        // setState form 1 shallow copying ,if previous state is not required
-        // this.setState({
-        //     qty: this.state.qty + 1
-        // });
-        //setState form 2 if previous state required then this
-        this.setState((prevState) => {
-            return {
-            qty: prevState.qty + 1
-            } 
-        });
-    }
-
-    decreaseQuantity= () =>{
-        const {qty} = this.state;
-        if( qty ==0){
-            return;
-        }
-        //console.log('this',this.state);
-        this.setState((prevState) =>{
-            return {
-                qty: prevState.qty - 1
-            }
-        });
-    }
-
-
-    render(){
+   render(){
         console.log('this.props',this.props);
         const {price,title,qty} = this.props.product;
+        const {product, onIncreaseQuantity, onDecreaseQuantity,onDeleteProduct } = this.props;
         return(
             <div className="cart-item">
                 <div className="left-block">
@@ -45,9 +16,9 @@ class CartItem extends React.Component{
                     <div style={{color: '#777'}}>Qty: {qty}</div>
                     <div className ="cart-item-actions">
                         {/*Buttons*/}
-                        <img alt="increase" className="action-icons" src="https://cdn-icons-png.flaticon.com/512/992/992651.png" onClick={this.increaseQuantity}/>
-                        <img alt="decrease" className="action-icons" src="https://cdn-icons-png.flaticon.com/512/992/992683.png"onClick={this.decreaseQuantity}/>
-                        <img alt="delete" className="action-icons" src="https://img-premium.flaticon.com/png/512/484/premium/484662.png?token=exp=1631268370~hmac=5157f143bc678b6cadfa0e12540c748e"/>
+                        <img alt="increase" className="action-icons" src="https://cdn-icons-png.flaticon.com/512/992/992651.png" onClick={() => onIncreaseQuantity(product)}/>
+                        <img alt="decrease" className="action-icons" src="https://cdn-icons-png.flaticon.com/512/992/992683.png"onClick={() => onDecreaseQuantity(product)}/>
+                        <img alt="delete" className="action-icons" src="https://img-premium.flaticon.com/png/512/484/premium/484662.png?token=exp=1631268370~hmac=5157f143bc678b6cadfa0e12540c748e" onClick={() => onDeleteProduct(product.id)}/>
                     </div>
                 </div>
             </div>
